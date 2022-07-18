@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ifif3526.memoapp.adapter.MemoAdapter;
 import com.ifif3526.memoapp.data.DatabaseHandler;
@@ -80,11 +84,47 @@ public class MainActivity extends AppCompatActivity {
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 1. 에디트 텍스트의 문자열을 지운다.
+                editSearch.setText(null);
+
+                // 2. DB 에 저장되어있는 모든 메모를 가져와야 한다.
                 DatabaseHandler db = new DatabaseHandler(MainActivity.this);
                 memoList = db.getAllMemo();
+                
+                // 3. 가져온 메모를 화면에 표시
                 adapter = new MemoAdapter(MainActivity.this, memoList);
                 recyclerView.setAdapter(adapter);
-                editSearch.setText(null);
+            }
+        });
+
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // 키워드 검색 에디트텍스트에 글자를 쓸때마다,
+                // 자동으로 해당 검색어를 가져와서, 디비에서 쿼리해서
+                // 검색 결과를 화면에 표시해주는 기능 개발.
+
+                String keyword = editSearch.getText().toString().trim();
+                Log.i("MyMemoApp", keyword);
+
+                if (keyword.length() < 2) {
+                    return;
+                }
+
+                DatabaseHandler db = new DatabaseHandler(MainActivity.this);
+                memoList = db.searchMemo(keyword);
+                adapter = new MemoAdapter(MainActivity.this, memoList);
+                recyclerView.setAdapter(adapter);
             }
         });
 
@@ -95,6 +135,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // 검색키워드 에디트 텍스트에 글자가 있으면, 없애도록한다.
+        editSearch.setText(null);
 
         // 데이터랑 연결!
         // 메모데이터가 없다!!!! 디비에서 가져오자.
