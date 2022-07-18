@@ -31,7 +31,7 @@
                 android:layout_weight="4"
                 android:ems="10"
                 android:hint="검색어 입력..."
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:textSize="28sp" />
 
             <ImageView

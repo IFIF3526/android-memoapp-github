@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddActivity">
+    tools:context=".EditActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,27 +16,26 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="10dp"
+            android:layout_margin="10dp"
             android:gravity="center"
-            android:text="메모 생성"
-            android:textSize="30sp" />
+            android:text="메모 수정"
+            android:textSize="28sp" />
 
         <EditText
             android:id="@+id/editTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:ems="10"
-            android:hint="제목..."
+            android:hint="제목 입력"
             android:inputType="text"
-            android:textSize="30sp" />
+            android:textSize="28sp" />
 
         <EditText
             android:id="@+id/editContent"
@@ -45,21 +44,17 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="50dp"
             android:ems="10"
-            android:hint="내용..."
-            android:lines="5"
-            android:maxLines="3"
+            android:hint="내용 입력"
             android:inputType="text"
-            android:textSize="30sp" />
+            android:textSize="28sp" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="10dp"
-            android:text="저 장"
-            android:textSize="30sp" />
+            android:text="수정 완료"
+            android:textSize="28sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
